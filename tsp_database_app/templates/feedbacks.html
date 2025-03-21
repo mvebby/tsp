@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Feedbacs</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    {% for feedback in feedbacks %}
+        <h3>Оценка: {{ feedback.rating }} </h3>
+        <h3>Текст: {{ feedback.feedback_text }} </h3>
+        <hr>
+    {% endfor %}
+</body>
+</html>

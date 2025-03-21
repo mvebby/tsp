@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Places in this country</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    {% for place in places_in_curr_country %}
+        <h3>Название: {{ place.name }} </h3>
+        <h3>Страна: {{ place.country }} </h3>
+        <h3>Город: {{ place.city }} </h3>
+        <h3>Адрес: {{ place.address }} </h3>
+        <hr>
+    {% endfor %}
+</body>
+</html>

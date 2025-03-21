@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Information about list of places</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    {% for place in info %}
+        <h3>Название: {{ place.name }} </h3>
+        <h3>Статус: {%if place.status%}был{%else%}не был{%endif%} </h3>
+        <hr>
+    {% endfor %}
+</body>
+</html>
