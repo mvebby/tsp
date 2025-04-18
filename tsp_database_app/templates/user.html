@@ -7,5 +7,10 @@
 <body>
     <h3>Логин: {{ user.id }} </h3>
     <h3>Возраст: {{ user.age }} </h3>
+    <a href="{% url 'update_user' user.id %}">Редактировать</a>
+    <a href="{% url 'delete_user' user.id %}">Удалить</a>
+    <a href="{% url 'list_of_current_person' user.id %}">Список мест</a>
+    <a href="{% url 'feedbacks_of_user' user.id %}">Отзывы</a>
+    <a href="{% url 'all_users' %}">Назад</a>
 </body>
 </html>

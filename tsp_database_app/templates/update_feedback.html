@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Редактировать отзыв</title>
+    <style>
+        .rating-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        input:invalid {
+            border-color: #ff6b6b;
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'feedbacks_of_user' user_id_feedback %}">Назад</a>
+    <h1>Редактировать отзыв</h1>
+    <form method="POST" onsubmit="return validateRating()">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="rating">Оценка (от 1 до 5):</label>
+            <div class="rating-control">
+                <input type="number" 
+                       name="rating" 
+                       id="rating" 
+                       min="1" 
+                       max="5" 
+                       step="1" 
+                       value="{{ feedback_current.rating|default:'3' }}"
+                       required
+                       oninput="validateRatingInput(this)">
+                <span id="rating-error" class="error-message"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="feedback_text">Отзыв:</label>
+            <textarea name="feedback_text" 
+                     id="feedback_text" 
+                     rows="4" 
+                     cols="50"
+                     required>{{ feedback_current.feedback_text|default:'' }}</textarea>
+        </div>
+
+        <input type="submit" value="Сохранить">
+    </form>
+
+    <script>
+        function validateRatingInput(input) {
+            const errorElement = document.getElementById('rating-error');
+            const value = parseInt(input.value);
+            
+            if (isNaN(value) || value < 1 || value > 5) {
+                errorElement.textContent = 'Оценка должна быть числом от 1 до 5';
+                input.setCustomValidity('Invalid rating');
+            } else {
+                errorElement.textContent = '';
+                input.setCustomValidity('');
+            }
+        }
+
+        function validateRating() {
+            const ratingInput = document.getElementById('rating');
+            const value = parseInt(ratingInput.value);
+            
+            if (isNaN(value) || value < 1 || value > 5) {
+                alert('Пожалуйста, введите оценку от 1 до 5');
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

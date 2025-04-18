@@ -18,8 +18,8 @@ class CustomUser(AbstractUser):
 
 
 class ListOfPlaces(models.Model):
-    usermodel = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    placemodel = models.ForeignKey(PlaceModel, on_delete=models.CASCADE)
+    usermodel = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='list_users')
+    placemodel = models.ForeignKey(PlaceModel, on_delete=models.CASCADE, related_name='list_places')
     status = models.BooleanField(default=False)
     date = models.DateField(auto_now_add=True)
 

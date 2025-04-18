@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Редактировать статус</title>
+</head>
+<body>
+    <h1>Редактировать статус места</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="status">Был:</label>
+        <input type="checkbox" name="status" id="status" {% if list_item.status %}checked{% endif %}><br><br>
+
+        <button type="submit">Сохранить изменения</button>
+    </form>
+</body>
+</html>

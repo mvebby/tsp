@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Places</title>
+    <meta charset="utf-8" />
+    <style>
+        .header {
+            display: block;
+            margin: 0 auto 32px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="header">Список пользователей:</h1>
+    {% for user in users %}
+        <h2>Имя: {{ user.username }} </h2>
+        <span><b>Возраст:</b> {{ user.age }} </span><br>
+        <span><b>Email:</b> {{ user.email }} </span><br>
+        <a href="{% url 'info_about_user' user.id %}">Подробнее</a>
+        <hr>
+    {% endfor %}
+    <a href="{% url 'create_user' %}">Создать нового пользователя</a>
+</body>
+</html>
