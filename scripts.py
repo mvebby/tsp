@@ -14,21 +14,20 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 def places_db():
     places_data = [
-        {"place_id": 1, "name": "Colosseum", "country": "Italy", "city": "Rome"},
-        {"place_id": 2, "name": "Eiffel tower", "country": "France", "city": "Paris"},
-        {"place_id": 3, "name": "Sagrada familia", "country": "Spain", "city": "Barcelona"},
-        {"place_id": 4, "name": "Statue of liberty", "country": "USA", "city": "New-York"},
-        {"place_id": 5, "name": "The Great Wall of China", "country": "China", "city": "Beijing"},
-        {"place_id": 6, "name": "Victoria Falls", "country": "South Africa", "city": "Zimbabwe"},
-        {"place_id": 7, "name": "The Taj Mahal", "country": "India", "city": "Agra"},
-        {"place_id": 8, "name": "The Acropolis", "country": "Greece", "city": "Athens"},
-        {"place_id": 9, "name": "The Pyramid of Cheops", "country": "Egypt", "city": "Giz Plateau"},
-        {"place_id": 10, "name": "Sydney Opera House", "country": "Australia", "city": "Sydney"}
+        {"name": "Colosseum", "country": "Italy", "city": "Rome"},
+        {"name": "Eiffel tower", "country": "France", "city": "Paris"},
+        {"name": "Sagrada familia", "country": "Spain", "city": "Barcelona"},
+        {"name": "Statue of liberty", "country": "USA", "city": "New-York"},
+        {"name": "The Great Wall of China", "country": "China", "city": "Beijing"},
+        {"name": "Victoria Falls", "country": "South Africa", "city": "Zimbabwe"},
+        {"name": "The Taj Mahal", "country": "India", "city": "Agra"},
+        {"name": "The Acropolis", "country": "Greece", "city": "Athens"},
+        {"name": "The Pyramid of Cheops", "country": "Egypt", "city": "Giz Plateau"},
+        {"name": "Sydney Opera House", "country": "Australia", "city": "Sydney"}
     ]
 
     for place in places_data:
         new_place = PlaceModel(
-            place_id=place['place_id'],
             name=place['name'],
             country=place['country'],
             city=place['city'],

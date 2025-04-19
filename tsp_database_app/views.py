@@ -50,7 +50,6 @@ def search_places(request):
 def create_place(request):
     if request.method == "POST":
         PlaceModel.objects.create(
-            place_id=request.POST.get("place_id"),
             name=request.POST.get("name"),
             city=request.POST.get("city"),
             country=request.POST.get("country"),
@@ -93,8 +92,7 @@ def get_user(request, user_id):
 # CREATE CustomUser
 def create_user(request):
     if request.method == "POST":
-        CustomUser.objects.create(
-            id=request.POST.get("id"),
+        CustomUser.objects.create_user(
             username=request.POST.get("username"),
             age=request.POST.get("age"),
             email=request.POST.get("email"),
@@ -108,7 +106,6 @@ def update_user(request, user_id):
     user = get_object_or_404(CustomUser, id=user_id) # нужно для проверки, что пользователь существует
     if request.method == "POST":
         CustomUser.objects.filter(id=user_id).update(
-            id=request.POST.get("id"),
             username = request.POST.get("username"),
             age = request.POST.get("age"),
             email = request.POST.get("email"),
@@ -170,7 +167,7 @@ def delete_list_of_places(request, list_id):
     user_id_list = list_item.usermodel.id
     
     if request.method == "POST":
-        ListOfPlaces.objects.filter(pk=list_id).delete() # удалчем с помощью менеджера модели
+        ListOfPlaces.objects.filter(pk=list_id).delete() # удаляем с помощью менеджера модели
         return redirect('list_of_current_person', user_id=user_id_list)
     
     return render(request, 'delete_list.html', {'list_item': list_item})
@@ -191,16 +188,16 @@ def get_feedbacks_by_user(request, user_id):
 
 
 def create_feedbacks(request):
+    id = request.POST.get("placemodel")
+    user_id_feedback = request.POST.get("username")
+    
     if request.method == "POST":
-        id = request.POST.get("placemodel")
-        user_id_feedback = request.POST.get("username")
-
         user = get_object_or_404(CustomUser, id=user_id_feedback)
         place = get_object_or_404(PlaceModel, place_id=id)
 
         if not ListOfPlaces.objects.filter(
-            usermodel_id=user,
-            placemodel_id=place,
+            usermodel=user,
+            placemodel=place,
             status=True
         ).exists():
             messages.error(request, "Нельзя оставить отзыв для этого места")
@@ -214,7 +211,7 @@ def create_feedbacks(request):
         )
         return redirect('feedbacks_of_user', user_id = user_id_feedback)
     places = PlaceModel.objects.all()
-    return render(request, 'create_feedback.html', {'places': places})
+    return render(request, 'create_feedback.html', {'places': places, 'user_id_feedback': user_id_feedback})
 
 
 def update_feedbacks(request, feedback_id):
@@ -237,4 +234,4 @@ def delete_feedbacks(request, feedback_id):
     if request.method == "POST":
         FeedbackModel.objects.filter(pk=feedback_id).delete()
         return redirect('feedbacks_of_user', user_id = user_id_feedback)
-    return render(request, 'delete_feedback.html', {'feedback_current': feedback_current})
+    return render(request, 'delete_feedback.html', {'feedback_current': feedback_current, 'user_id_feedback': user_id_feedback})

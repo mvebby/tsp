@@ -17,19 +17,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from tsp_database_app import views
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('places/', views.get_all_places, name='all_places'),
     path('places/<int:id>/', views.get_place, name='current_place'),
-    path('name/<str:place_name>/', views.get_places_by_name, name='places_by_current_name'),
-    path('country/<str:country_name>/', views.get_places_from_country, name='places_from_current_country'),
-    path('city/<str:city_name>/', views.get_places_from_city, name='places_from_current_city'),
+    path('search/name/<str:place_name>/', views.get_places_by_name, name='places_by_current_name'),
+    path('search/country/<str:country_name>/', views.get_places_from_country, name='places_from_current_country'),
+    path('search/city/<str:city_name>/', views.get_places_from_city, name='places_from_current_city'),
     path('search/', views.search_places, name='search_places'),
     path('places/create/', views.create_place, name='create_place'),
     path('places/update/<int:id>/', views.update_place, name='update_place'),
     path('places/delete/<int:id>/', views.delete_place, name='delete_place'),
-    path('users/', views.get_all_users, name='all_users'),
+    path('users/', views.get_all_users, name='all_my_users'),
     path('users/<int:user_id>/', views.get_user, name='info_about_user'),
     path('users/create/', views.create_user, name='create_user'),
     path('users/update/<int:user_id>/', views.update_user, name='update_user'),
@@ -43,4 +45,7 @@ urlpatterns = [
     path('feedbacks/create/', views.create_feedbacks, name='create_feedback'),
     path('feedbacks/update/<int:feedback_id>/', views.update_feedbacks, name='update_feedback'),
     path('feedbacks/delete/<int:feedback_id>/', views.delete_feedbacks, name='delete_feedback'),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/refresh/', TokenVerifyView.as_view(), name='token_verify'),
 ]

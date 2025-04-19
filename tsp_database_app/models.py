@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 class PlaceModel(models.Model):
-    place_id = models.IntegerField(primary_key=True)
+    place_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50, null=False)
     country = models.CharField(max_length=57, null=False)
     city = models.CharField(max_length=170, null=False)
