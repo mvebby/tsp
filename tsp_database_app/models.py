@@ -9,7 +9,7 @@ class PlaceModel(models.Model):
     country = models.CharField(max_length=57, null=False)
     city = models.CharField(max_length=170, null=False)
     address = models.TextField(null=True, blank=True)
-
+  
 class CustomUser(AbstractUser):
     age = models.SmallIntegerField(null=True, blank=True)
 
