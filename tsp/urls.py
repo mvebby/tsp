@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from tsp_database_app import views
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 
 urlpatterns = [
@@ -29,9 +29,9 @@ urlpatterns = [
     path('register/', views.UserRegisterAPIView.as_view()),
     path('change-password/', views.PasswordChangeAPIView.as_view()),
     path('logout/', views.BlackListLogoutAPIView.as_view()),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/', views.MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    #path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('listofplaces/', views.ListOfPlacesAPIView.as_view()),
     path('listofplaces/<int:pk>/', views.ListOfPlacesAPIView.as_view()),
     path('feedbacks/<int:placemodel_id>/', views.FeedbackModelAPIView.as_view()),

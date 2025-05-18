@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
 from .models import *
 from django.http import Http404
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 
 class PlaceSerializer(serializers.ModelSerializer):
@@ -47,11 +48,17 @@ class UserRegisterSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data.pop('password_confirm', None)
         password = validated_data.pop('password', None)
-        # user = CustomUser.objects.create(**validated_data)
-        user = CustomUser(**validated_data)
+        user = CustomUser.objects.create(**validated_data)
         user.set_password(password)
         user.save()
         return user
+    
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    def get_token(cls, user):
+        token = super().get_token(user)
+        token['username'] = user.username
+        return token
 
 
 class PasswordChangeSerializator(serializers.Serializer):

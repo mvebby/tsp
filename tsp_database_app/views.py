@@ -10,11 +10,14 @@ from django.http import Http404
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.views import TokenBlacklistView
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.renderers import TemplateHTMLRenderer
+from rest_framework_simplejwt.views import TokenObtainPairView
 # Create your views here.
 # PlaceModel
 
 class PlaceModelAPIView(APIView):
     permission_classes = (IsAuthenticated, )
+    renderer_classes = [TemplateHTMLRenderer]
 
     def get_object(self, place_id):
         try:
@@ -28,11 +31,12 @@ class PlaceModelAPIView(APIView):
             # Возвращаем список всех мест
             places = PlaceModel.objects.all()
             serializer = PlaceSerializer(places, many=True)
+            return Response({'places': serializer.data}, template_name='places.html')
         else:
             # Возвращаем конкретное место по place_id
             place = self.get_object(place_id)
             serializer = PlaceSerializer(place)
-        return Response(serializer.data)
+            return Response({'place': serializer.data}, template_name='place.html')
 
     def post(self, request):
         serializer = PlaceSerializer(data=request.data)
@@ -74,6 +78,7 @@ class PlaceModelAPIView(APIView):
 #-----------------------------------------------------------------------------------------------------------#
 # CustomUser
 class CustomUserAPIView(APIView):
+    permission_classes = (AllowAny, )
 
     def get_object(self, id):
         try:
@@ -123,6 +128,7 @@ class CustomUserAPIView(APIView):
 #--------------------------------------------------------------------------------------------------#
 # Register
 class UserRegisterAPIView(APIView):
+    permission_classes = (AllowAny, )
     def post(self, request, *args, **kwargs):
         serializer = UserRegisterSerializer(data = request.data)
         if serializer.is_valid(raise_exception=True):
@@ -150,6 +156,7 @@ class PasswordChangeAPIView(APIView):
 
 # BlackList
 class BlackListLogoutAPIView(APIView):
+    permission_classes = (IsAuthenticated, )
     def post(self, request):
         refresh_token = request.data.get('refresh_token')
         if not refresh_token:
@@ -160,10 +167,14 @@ class BlackListLogoutAPIView(APIView):
             return Response({'success': 'Токен успешно отозван'}, status=status.HTTP_200_OK)
         except Exception:
             return Response({'error': 'Неверный или уже отозванный refresh token'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
 #--------------------------------------------------------------------------------------------------#
 # ListOfPlaces
 class ListOfPlacesAPIView(APIView):
-    permission_classes = (IsAuthenticated, )\
+    permission_classes = (IsAuthenticated, )
     
     def get_object(self, pk):
         try:
