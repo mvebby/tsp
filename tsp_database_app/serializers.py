@@ -75,11 +75,13 @@ class PasswordChangeSerializator(serializers.Serializer):
 
 class ListOfPlacesSerializer(serializers.ModelSerializer):
     placemodel = serializers.PrimaryKeyRelatedField(queryset = PlaceModel.objects.all())
+    place_name = serializers.CharField(source='placemodel.name', read_only=True)
     usermodel = serializers.HiddenField(default=serializers.CurrentUserDefault())
     class Meta:
         model = ListOfPlaces
         fields = '__all__'
         read_only_fields = ['date']
+        
     
     def create(self, validated_data):
         return ListOfPlaces.objects.create(**validated_data)

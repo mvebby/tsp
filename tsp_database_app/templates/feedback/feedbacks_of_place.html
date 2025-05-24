@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Feedbacs</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <a href="{% url 'place' place_id %}" class="back-link">Назад</a>
+    
+    <h2>Отзывы о "{{ place_name }}"</h2>
+    
+    {% if info %}
+        {% for feedback in info %}
+            <div class="feedback-card">
+                <h3>{{ feedback.user_name }}</h3>
+                <div class="rating">
+                    {% for i in "12345" %}
+                        {% if forloop.counter <= feedback.rating %}
+                            <span class="star filled">★</span>
+                        {% else %}
+                            <span class="star">☆</span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <p class="feedback-text">{{ feedback.feedback_text }}</p>
+                <p class="date">{{ feedback.created_at|date:"d.m.Y H:i" }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Пока нет отзывов об этом месте.</p>
+    {% endif %}
+</body>
+</html>

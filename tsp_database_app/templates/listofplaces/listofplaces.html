@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>List of places</title>
+    <meta charset="utf-8" />
+    <style>
+        .header {
+            display: block;
+            margin: 0 auto 32px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="header">Список мест, которые пользователь хотел бы посетить:</h1>
+    <a href="{% url 'create_listofplaces' %}">Выбрать еще одно место</a>
+    <a href="{% url 'info_about_user' user.id%}">Назад</a>
+    {% for place in user_listofplaces %}
+        <h2>Название: {{ place.place_name }} </h2>
+        {% if place.status %}
+            Был
+            <span>{{ place.date }}</span>
+        {% else %}
+            Не был
+        {% endif %}
+        
+        <a href="{% url 'update_listofplaces' user.id%}">Изменить статус</a>
+        <a href="#" id="delete-link" data-listofplace-id="{{ place.id }}">Удалить</a>
+        <hr>
+    {% endfor %}
+    
+    <script>
+        document.getElementById('delete-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            const listofplaceId = this.getAttribute('data-listofplace-id');
+            
+            if (confirm('Вы точно хотите удалить это место?')) {
+                fetch(`/listofplace/${listofplaceId}/delete/`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    window.location.href = '/listofplace/';
+                })   
+            }
+            
+        });
+    </script>
+</body>
+</html>

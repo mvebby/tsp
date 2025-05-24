@@ -6,11 +6,7 @@
 <body>
     <h1>Создать список мест</h1>
     <form method="post">
-        {% csrf_token %}
-        <label for="id">ID пользователя:</label>
-        <input type="number" id="username" name="username"><br><br>
-
-        
+        {% csrf_token %}        
         <label for="placemodel">Выберите место:</label>
         <select name="placemodel" id="placemodel">
             {% for place in places %}

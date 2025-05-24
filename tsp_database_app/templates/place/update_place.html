@@ -8,10 +8,6 @@
     <form method="POST">
         {% csrf_token %}
         <p>
-            <label>Введите id</label><br>
-            <input type="number" name="place_id" value="{{place.place_id}}" />
-        </p>
-        <p>
             <label>Введите название</label><br>
             <input type="text" name="name" value="{{place.name}}" />
         </p>

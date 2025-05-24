@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Information about place</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h3>Название: {{ place.name }} </h3>
+    <h3>Страна: {{ place.country }} </h3>
+    <h3>Город: {{ place.city }} </h3>
+    <h3>Адрес: {{ place.address }} </h3>
+    <a href="{% url 'place_feedbacks' place.place_id%}">Отзывы об этом месте</a>
+    <a href="{% url 'update_place' place.place_id%}">Редактировать</a>
+    <a href="#" id="delete-link" data-place-id="{{ place.place_id }}">Удалить</a>
+    <a href="{% url 'all_places' %}">Назад</a>
+
+    <script>
+        document.getElementById('delete-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            const placeId = this.getAttribute('data-place-id');
+            
+            if (confirm('Вы точно хотите удалить это место?')) {
+                fetch(`/places/${placeId}/delete/`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    window.location.href = '/places/';
+                })   
+            }
+            
+        });
+    </script>
+</body>
+</html>

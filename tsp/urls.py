@@ -22,19 +22,36 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('places/', views.PlaceModelAPIView.as_view()),
-    path('places/<int:place_id>/', views.PlaceModelAPIView.as_view()),
-    path('users/', views.CustomUserAPIView.as_view()),
-    path('users/<int:id>/', views.CustomUserAPIView.as_view()),
-    path('register/', views.UserRegisterAPIView.as_view()),
-    path('change-password/', views.PasswordChangeAPIView.as_view()),
-    path('logout/', views.BlackListLogoutAPIView.as_view()),
-    path('api/token/', views.MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
-    #path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('listofplaces/', views.ListOfPlacesAPIView.as_view()),
-    path('listofplaces/<int:pk>/', views.ListOfPlacesAPIView.as_view()),
+    #Places urls
+    path('places/', views.PlaceModelAPIView.as_view(), name='all_places'),
+    path('places/<int:place_id>/', views.PlaceModelAPIView.as_view(), name='place'),
+    path('places/create/', views.PlaceModelCreateView.as_view(), name='create_place'),
+    path('places/<int:place_id>/update/', views.PlaceModelUpdateView.as_view(), name='update_place'),
+    path('places/<int:place_id>/delete/', views.PlaceModelAPIView.as_view(), name='delete_place'),
+
+    #Users urls
+    path('users/', views.CustomUserAPIView.as_view(), name='all_users'),
+    path('users/<int:id>/', views.CustomUserAPIView.as_view(), name='info_about_user'),
+    path('users/<int:id>/update/', views.CustomUserUpdateView.as_view(), name='update_user'),
+    path('users/<int:id>/delete/', views.CustomUserAPIView.as_view(), name='delete_user'),
+    path('register/', views.RegisterView.as_view(), name='register'),
+    path('login/', views.LoginView.as_view(), name='login'),
+    path('logout/', views.LogoutView.as_view(), name='logout'),
+    path('change-password/', views.PasswordChangeAPIView.as_view(), name='password_change'),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),  
+    #path('logout/', views.BlackListLogoutAPIView.as_view()),
+
+    #Listofplaces urls
+    path('listofplaces/', views.ListOfPlacesAPIView.as_view(), name='listofplaces'),
+    path('listofplaces/<int:pk>/', views.ListOfPlacesAPIView.as_view(), name='user_listofplaces'),
+    path('listofplaces/create/', views.ListOfPlacesCreateView.as_view(), name='create_listofplaces'),
+    path('listofplaces/<int:placemodel_id>/update/', views.UpdateStatusView.as_view(), name='update_listofplaces'),
+    path('/listofplace/<int:pk>/delete/', views.ListOfPlacesCreateView.as_view(), name='create_listofplaces'),
+
+    #Feedbacks urls
     path('feedbacks/<int:placemodel_id>/', views.FeedbackModelAPIView.as_view()),
+    path('places/<int:placemodel_id>/feedbacks/', views.FeedbackModelAPIView.as_view(), name='place_feedbacks'),
     path('feedbacks/', views.FeedbackModelAPIView.as_view()),
     path('feedbacks-delete/<int:pk>/', views.FeedbackDeleteAPIView.as_view()),
     path('feedbacks-update/<int:pk>/', views.FeedbackUpdateAPIView.as_view()),

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Information about user</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h3>Имя: {{ user.username }} </h3>
+    <h3>Возраст: {{ user.age }} </h3>
+    <a href="{% url 'update_user' user.id %}">Редактировать</a>
+    <a href="#" id="delete-link" data-user-id="{{ user.id }}">Удалить</a>
+    <a href="{% url 'listofplaces'%}">Список мест</a>
+    <a href="#">Отзывы</a>
+    <a href="{% url 'all_users' %}">Назад</a>
+
+    <script>
+        document.getElementById('delete-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            const userId = this.getAttribute('data-user-id');
+            
+            if (confirm('Вы точно хотите удалить этого пользователя?')) {
+                fetch(`/users/${userId}/delete/`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    window.location.href = '/users/';
+                })   
+            }
+            
+        });
+    </script>
+</body>
+</html>
