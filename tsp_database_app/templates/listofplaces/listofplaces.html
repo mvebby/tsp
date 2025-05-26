@@ -23,30 +23,30 @@
             Не был
         {% endif %}
         
-        <a href="{% url 'update_listofplaces' user.id%}">Изменить статус</a>
-        <a href="#" id="delete-link" data-listofplace-id="{{ place.id }}">Удалить</a>
+        <a href="{% url 'update_listofplaces' place.id%}">Изменить статус</a>
+        <a href="#" id="delete-link{{ place.id }}" data-listofplace-id="{{ place.id }}">Удалить</a>
         <hr>
-    {% endfor %}
-    
-    <script>
-        document.getElementById('delete-link').addEventListener('click', function(e) {
-            e.preventDefault();
-            const listofplaceId = this.getAttribute('data-listofplace-id');
-            
-            if (confirm('Вы точно хотите удалить это место?')) {
-                fetch(`/listofplace/${listofplaceId}/delete/`, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRFToken': '{{ csrf_token }}',
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .then(response => {
-                    window.location.href = '/listofplace/';
-                })   
-            }
-            
-        });
-    </script>
+
+        <script>
+            document.getElementById('delete-link{{ place.id }}').addEventListener('click', function(e) {
+                e.preventDefault();
+                const listofplaceId = this.getAttribute('data-listofplace-id');
+                
+                if (confirm('Вы точно хотите удалить {{ place.id }} место?')) {
+                    fetch(`/listofplaces/{{ place.id }}/delete/`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}',
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    .then(response => {
+                        window.location.href = '/listofplaces/';
+                    })   
+                }
+                
+            });
+        </script>
+    {% endfor %}   
 </body>
 </html>

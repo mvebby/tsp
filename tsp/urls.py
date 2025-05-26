@@ -40,19 +40,17 @@ urlpatterns = [
     path('change-password/', views.PasswordChangeAPIView.as_view(), name='password_change'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),  
-    #path('logout/', views.BlackListLogoutAPIView.as_view()),
 
     #Listofplaces urls
     path('listofplaces/', views.ListOfPlacesAPIView.as_view(), name='listofplaces'),
     path('listofplaces/<int:pk>/', views.ListOfPlacesAPIView.as_view(), name='user_listofplaces'),
     path('listofplaces/create/', views.ListOfPlacesCreateView.as_view(), name='create_listofplaces'),
-    path('listofplaces/<int:placemodel_id>/update/', views.UpdateStatusView.as_view(), name='update_listofplaces'),
-    path('/listofplace/<int:pk>/delete/', views.ListOfPlacesCreateView.as_view(), name='create_listofplaces'),
+    path('listofplaces/<int:pk>/update/', views.ListOfPlacesUpdateView.as_view(), name='update_listofplaces'),
+    path('listofplaces/<int:pk>/delete/', views.ListOfPlacesCreateView.as_view(), name='create_listofplaces'),
 
     #Feedbacks urls
-    path('feedbacks/<int:placemodel_id>/', views.FeedbackModelAPIView.as_view()),
     path('places/<int:placemodel_id>/feedbacks/', views.FeedbackModelAPIView.as_view(), name='place_feedbacks'),
-    path('feedbacks/', views.FeedbackModelAPIView.as_view()),
-    path('feedbacks-delete/<int:pk>/', views.FeedbackDeleteAPIView.as_view()),
-    path('feedbacks-update/<int:pk>/', views.FeedbackUpdateAPIView.as_view()),
+    path('places/<str:name>/feedbacks/create', views.FeedbackModelAPIView.as_view(), name='create_feedback'),
+    path('feedbacks-update/<int:pk>/', views.FeedbackUpdateAPIView.as_view(), name='update_feedback'),
+    path('feedbacks-delete/<int:pk>/', views.FeedbackDeleteAPIView.as_view(), name='delete_feedback'),
 ]

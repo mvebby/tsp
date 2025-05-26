@@ -278,7 +278,7 @@ class PasswordChangeAPIView(APIView):
             user.set_password(new_password)
             user.save()
             # Редирект после успешной смены пароля
-            return redirect('all_users')
+            return redirect('place')
         
         # Возвращаем форму с ошибками валидации
         return Response({
@@ -366,32 +366,32 @@ class ListOfPlacesCreateView(APIView):
             status=status.HTTP_400_BAD_REQUEST
         )
     
-class UpdateStatusView(APIView):
+class ListOfPlacesUpdateView(APIView):
     permission_classes = [IsAuthenticated]
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'listofplaces/update_listofplaces.html'
 
-    def get_object(self, placemodel_id):
+    def get_object(self, pk):
         return get_object_or_404(
             ListOfPlaces,
-            placemodel_id=placemodel_id,
+            pk=pk,
             usermodel=self.request.user
         )
 
-    def get(self, request, placemodel_id):
-        list_item = self.get_object(placemodel_id)
+    def get(self, request, pk):
+        list_item = self.get_object(pk)
         serializer = ListOfPlacesSerializer(list_item)
         return Response({
             'list_item': list_item,
             'serialized_data': serializer.data
         })
     
-    def post(self, request, placemodel_id):
+    def post(self, request, pk):
         # Явно говорим, что POST = PUT для этой вьюхи
-        return self.patch(request, placemodel_id)
+        return self.patch(request, pk)
 
-    def patch(self, request, placemodel_id):
-        list_item = self.get_object(placemodel_id)
+    def patch(self, request, pk):
+        list_item = self.get_object(pk)
         
         # Инвертируем текущий статус
         data = {'status': not list_item.status}
@@ -416,46 +416,62 @@ class FeedbackModelAPIView(APIView):
     template_name = 'feedback/feedbacks_of_place.html'
 
     def get(self, request, placemodel_id=None):
-        # Получаем отзывы с информацией о пользователе
-        feedbacks = FeedbackModel.objects.filter(
-            placemodel_id=placemodel_id
-        ).select_related('usermodel')
+        feedbacks = FeedbackModel.objects.filter(placemodel_id=placemodel_id).select_related('usermodel')
         
-        # Формируем список отзывов
+        user_feedback = feedbacks.filter(usermodel_id=request.user.id).first()
+        
         feedbacks_list = []
         for fb in feedbacks:
             feedback_data = {
+                'pk': fb.id,
+                'user_id': fb.usermodel.id,
                 'user_name': fb.usermodel.username,
                 'rating': fb.rating,
                 'feedback_text': fb.feedback_text
             }
-            # Добавляем дату только если поле существует
-            if hasattr(fb, 'created_at'):
-                feedback_data['created_at'] = fb.created_at
             feedbacks_list.append(feedback_data)
         
         place = get_object_or_404(PlaceModel, pk=placemodel_id)
         
         return Response({
+            'user_feedback': user_feedback,
             'info': feedbacks_list,
             'place_id': placemodel_id,
             'place_name': place.name
         })
 
         
-    def post(self, request, name=None):
-        serializer = FeedbackSerializer(data=request.data, context={'request': request})
+    def post(self, request, placemodel_id=None):
+        # Создаем изменяемую копию request.data
+        mutable_data = request.data.copy()
+        
+        # Добавляем название места из URL параметра
+        place = get_object_or_404(PlaceModel, pk=placemodel_id)
+        mutable_data['name'] = place.name
+        
+        serializer = FeedbackSerializer(data=mutable_data, context={'request': request})
+        
         if serializer.is_valid(raise_exception=True):
             serializer.save()
-            return Response(serializer.data)
+            return redirect('place_feedbacks', placemodel_id=placemodel_id)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-    
+
 class FeedbackUpdateAPIView(APIView):
     permission_classes = (IsAuthenticated, )
-    def put(self, request, *args, **kwargs):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'feedback/update_feedback.html'
+    
+    def get(self, request, pk):
+        feedback = FeedbackModel.objects.get(id=pk)
+        return Response({'feedback': feedback})
+    
+    def post(self, request, pk):
+        # Явно говорим, что POST = PUT для этой вьюхи
+        return self.put(request, pk)
+    
+    def put(self, request, pk):
         #тут айди, а не пк
-        pk = kwargs.get("pk", None)
         if not pk:
             return Response({"error": "Primary key is not found"})
     
@@ -466,11 +482,16 @@ class FeedbackUpdateAPIView(APIView):
         serializer = FeedbackUpdateSerializer(instance, data=request.data, context={'request': request})
         if serializer.is_valid(raise_exception=True):
             serializer.save()
-            return Response(serializer.data)
+            return redirect('place_feedbacks', placemodel_id = instance.placemodel_id)
     
 
 class FeedbackDeleteAPIView(APIView):
     permission_classes = (IsAuthenticated, )
+
+    def post(self, request, pk):
+        # Явно говорим, что POST = PUT для этой вьюхи
+        return self.delete(request, pk)
+
     def delete(self, request, *args, **kwargs):
         pk = kwargs.get("pk", None)
         if not pk:

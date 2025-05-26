@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Travel App{% endblock %}</title>
+    <link href="../static/css/normalize.css" rel="stylesheet">
+    <link href="../static/css/base.css" rel="stylesheet">
+</head>
+
+<body>
+    <header class="header">
+        <div class="header__content">
+            <a class="header__logo-link" href="{% url 'all_places' %}">ToGo</a>
+            <div class="header__auth">
+                {% if request.user.is_authenticated %}
+                    <a class="header__auth-links" href="{% url 'info_about_user' user.id%}">Профиль</a>
+                    <a class="header__auth-links" href="{% url 'logout' %}">Выйти</a>
+                {% else %}
+                    <a class="header__auth-links" href="{% url 'login' %}">Войти</a>
+                    <a class="header__auth-links" href="{% url 'register' %}">Регистрация</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>    
+    </main>
+</body>
+</html>

@@ -1,0 +1,46 @@
+a {
+  text-decoration: none;
+  color: initial;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  height: 80px;
+  padding: 24px;
+  background-color: #2C4081;
+}
+
+.header__content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header__logo-link {
+  font-size: 32px;
+  font-weight: bold;
+  color:white;
+}
+
+.header__auth {
+  display: flex;
+  gap: 12px;
+}
+
+.header__auth-links {
+  font-size: 24px;
+  color:white;
+}
+
+.main {
+  height: 100vh;
+  background-color: #6E86D6;
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+  max-width: 1270px;
+  margin: 0 auto;
+  background-color: #fff;
+}

@@ -11,37 +11,13 @@
     </style>
 </head>
 <body>
-    <script>
-        function getCookie(name) {
-            let cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                const cookies = document.cookie.split(';');
-                for (let i = 0; i < cookies.length; i++) {
-                    const cookie = cookies[i].trim();
-                    if (cookie.startsWith(name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
-            }
-            return cookieValue;
-        }
-        
-        fetch('/places/', {
-            headers: {
-                'Authorization': `Bearer ${getCookie('access_token')}`,
-            }
-        })
-        .then(response => response.json())
-        .then(data => console.log(data));
-    </script>
-
     <h1 class="header">Список мест:</h1>
     {% for place in places %}
         <h2>Название: {{ place.name }} </h2>
         <span><b>Страна:</b> {{ place.country }} </span><br>
         <span><b>Город:</b> {{ place.city }} </span><br>
         <span><b>Адрес:</b> {{ place.address }} </span><br>
+        <a href="{% url 'place' place.place_id%}">Подробнее</a><br>
         <hr>
     {% endfor %}
 </body>

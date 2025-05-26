@@ -19,7 +19,7 @@
     </style>
 </head>
 <body>
-    <a href="{% url 'feedbacks_of_user' user_id_feedback %}">Назад</a>
+    <a href="{% url 'place_feedbacks' feedback.placemodel_id %}">Назад</a>
     <h1>Редактировать отзыв</h1>
     <form method="POST" onsubmit="return validateRating()">
         {% csrf_token %}
@@ -33,7 +33,7 @@
                        min="1" 
                        max="5" 
                        step="1" 
-                       value="{{ feedback_current.rating|default:'3' }}"
+                       value="{{ feedback.rating }}"
                        required
                        oninput="validateRatingInput(this)">
                 <span id="rating-error" class="error-message"></span>
@@ -46,7 +46,7 @@
                      id="feedback_text" 
                      rows="4" 
                      cols="50"
-                     required>{{ feedback_current.feedback_text|default:'' }}</textarea>
+                     required>{{ feedback.feedback_text }}</textarea>
         </div>
 
         <input type="submit" value="Сохранить">
