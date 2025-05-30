@@ -1,0 +1,135 @@
+.update {
+    max-width: 500px;
+    margin: 3rem auto;
+    padding: 2.5rem;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Заголовок формы */
+.update__title {
+    color: #1a365d;
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 700;
+    position: relative;
+}
+
+.update__title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #4299e1, #48bb78);
+    border-radius: 2px;
+}
+
+/* Стили формы */
+.update__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+}
+
+/* Стили для блока статуса */
+.status__title {
+    color: #2d3748;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.status__text {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: #4a5568;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.status__text:hover {
+    color: #1a365d;
+}
+
+/* Кастомный чекбокс */
+.status__checkbox {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 1.4em;
+    height: 1.4em;
+    border: 2px solid #cbd5e0;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s;
+}
+
+.status__checkbox:checked {
+    background-color: #48bb78;
+    border-color: #48bb78;
+}
+
+.status__checkbox:checked::after {
+    content: '✓';
+    position: absolute;
+    color: white;
+    font-size: 1em;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.status__checkbox:focus {
+    box-shadow: 0 0 0 3px rgba(72, 187, 120, 0.3);
+}
+
+/* Кнопки */
+.update__submit {
+    padding: 1rem;
+    background: linear-gradient(135deg, #4299e1, #48bb78);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.update__submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, #3182ce, #38a169);
+}
+
+.update__submit:active {
+    transform: translateY(0);
+}
+
+.update_back {
+    display: block;
+    text-align: center;
+    padding: 0.8rem;
+    color: #4a5568;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s;
+    border-radius: 6px;
+}
+
+.update_back:hover {
+    background-color: #f7fafc;
+    color: #1a365d;
+}

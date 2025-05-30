@@ -1,0 +1,98 @@
+.register__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #c3cfe2;
+    padding: 20px;
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.register__title {
+    color: #2d3748;
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.register__form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 400px;
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.register__field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.register__field--name {
+    font-size: 14px;
+    color: #4a5568;
+    font-weight: 500;
+}
+
+.register__field--input {
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.register__field--input:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+}
+
+.error-message {
+    color: #e53e3e;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.register__button {
+    padding: 15px;
+    background-color: #2C4081;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.register__button:hover {
+    background-color: #3a7bc8;
+}
+
+.register__button:active {
+    transform: translateY(1px);
+}
+
+.register__redirect {
+    margin-top: 20px;
+    text-align: center;
+    color: #4a5568;
+}
+
+.register__redirect a {
+    color: #4a90e2;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.register__redirect a:hover {
+    text-decoration: underline;
+}

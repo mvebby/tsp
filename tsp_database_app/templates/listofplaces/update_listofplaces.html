@@ -1,24 +1,29 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Редактировать статус</title>
-</head>
-<body>
-    <h1>Редактировать статус места</h1>
+{% extends '../base.html' %}
+{% load static %}
 
-    <form method="post">
-        {% csrf_token %}
-        <input type="hidden" name="_method" value="patch">
-        <h2>Текущий статус:</h2>
-        <label for="status">Был:</label>
-        <input type="checkbox" 
-               name="status" 
-               id="status" 
-               {% if list_item.status %}checked{% endif %}>
-        <br><br>
+{% block title %}Update Wishlist | ToGo{% endblock %}
 
-        <button type="submit">Изменить статус</button>
-        <a href="{% url 'listofplaces' %}">Отмена</a>
-    </form>
-</body>
-</html>
+{% block extra_css %}
+  <link href="{% static '../static/css/listofplaces/update_listofplaces.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="update">
+        <h1 class="update__title">Редактировать статус места</h1>
+
+        <form class="update__form" method="post">
+            {% csrf_token %}
+            <input class="update__name" type="hidden" name="_method" value="patch">
+            <h2 class="status__title">Текущий статус:</h2>
+            <div>
+                <label class="status__text" for="status">Был:</label>
+                <input class="status__checkbox" type="checkbox" 
+                    name="status" 
+                    id="status" 
+                    {% if list_item.status %}checked{% endif %}>
+            </div>
+            <button class="update__submit" type="submit">Изменить статус</button>
+            <a class="update_back" href="{% url 'listofplaces' %}">Отмена</a>
+        </form>
+    </div>
+{% endblock %}

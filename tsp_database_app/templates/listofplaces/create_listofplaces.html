@@ -1,23 +1,28 @@
-% extends '../base.html' %}
+{% extends '../base.html' %}
+{% load static %}
 
-{% block title %}Вход | ToGo{% endblock %}
+{% block title %}Add place to wishlist | ToGo{% endblock %}
+
+{% block extra_css %}
+  <link href="{% static '../static/css/listofplaces/create_listofplaces.css' %}" rel="stylesheet">
+{% endblock %}
 
 {% block content %}
-    <div>
-        <h1>Создать список мест</h1>
-        <form method="post">
+    <div class="create">
+        <h1 class="create__title">Создать список мест</h1>
+        <form class="create__form" method="post">
             {% csrf_token %}        
-            <label for="placemodel">Выберите место:</label>
-            <select name="placemodel" id="placemodel">
+            <label class="create__label" for="placemodel">Выберите место:</label>
+            <select class="create__place" name="placemodel" id="placemodel">
                 {% for place in places %}
                     <option value="{{ place.pk }}">{{ place.name }} ({{ place.city }}, {{ place.country }})</option>
                 {% endfor %}
             </select><br><br>
 
-            <label for="status">Был:</label>
-            <input type="checkbox" name="status" id="status"><br><br>
+            <label class="create__status" for="status">Был:</label>
+            <input class="create__status--checkbox" type="checkbox" name="status" id="status"><br><br>
 
-            <button type="submit">Создать</button>
+            <button class="create__button" type="submit">Создать</button>
         </form>
     </div>
 {% endblock %}

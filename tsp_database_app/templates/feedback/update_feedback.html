@@ -1,81 +1,71 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Редактировать отзыв</title>
-    <style>
-        .rating-control {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .error-message {
-            color: red;
-            font-size: 0.9em;
-            margin-top: 5px;
-        }
-        input:invalid {
-            border-color: #ff6b6b;
-        }
-    </style>
-</head>
-<body>
-    <a href="{% url 'place_feedbacks' feedback.placemodel_id %}">Назад</a>
-    <h1>Редактировать отзыв</h1>
-    <form method="POST" onsubmit="return validateRating()">
-        {% csrf_token %}
-        
-        <div class="form-group">
-            <label for="rating">Оценка (от 1 до 5):</label>
-            <div class="rating-control">
-                <input type="number" 
-                       name="rating" 
-                       id="rating" 
-                       min="1" 
-                       max="5" 
-                       step="1" 
-                       value="{{ feedback.rating }}"
-                       required
-                       oninput="validateRatingInput(this)">
-                <span id="rating-error" class="error-message"></span>
+{% extends '../base.html' %}
+{% load static %}
+
+{% block title %}Feedback | ToGo{% endblock %}
+
+{% block extra_css %}
+  <link href="{% static '../static/css/feedback/update_feedback.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="update">
+        <a class="update__back" href="{% url 'place_feedbacks' feedback.placemodel_id %}">Назад</a>
+        <h1 class="update__title">Редактировать отзыв</h1>
+        <form class="update__form" method="POST" onsubmit="return validateRating()">
+            {% csrf_token %}
+            
+            <div class="update__field">
+                <label class="update__field--name" for="rating">Оценка (от 1 до 5):</label>
+                <div class="update__field--rating rating-control">
+                    <input type="number" 
+                        name="rating" 
+                        id="rating" 
+                        min="1" 
+                        max="5" 
+                        step="1" 
+                        value="{{ feedback.rating }}"
+                        required
+                        oninput="validateRatingInput(this)">
+                    <span id="rating-error" class="error-message"></span>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label for="feedback_text">Отзыв:</label>
-            <textarea name="feedback_text" 
-                     id="feedback_text" 
-                     rows="4" 
-                     cols="50"
-                     required>{{ feedback.feedback_text }}</textarea>
-        </div>
+            <div class="update__field">
+                <label class="update__field--name" for="feedback_text">Отзыв:</label>
+                <textarea class="update__field--rating" name="feedback_text" 
+                        id="feedback_text" 
+                        rows="4" 
+                        cols="50"
+                        required>{{ feedback.feedback_text }}</textarea>
+            </div>
 
-        <input type="submit" value="Сохранить">
-    </form>
+            <input class="update__submit" type="submit" value="Сохранить">
+        </form>    
+    </div>
 
     <script>
-        function validateRatingInput(input) {
-            const errorElement = document.getElementById('rating-error');
-            const value = parseInt(input.value);
-            
-            if (isNaN(value) || value < 1 || value > 5) {
-                errorElement.textContent = 'Оценка должна быть числом от 1 до 5';
-                input.setCustomValidity('Invalid rating');
-            } else {
-                errorElement.textContent = '';
-                input.setCustomValidity('');
+            function validateRatingInput(input) {
+                const errorElement = document.getElementById('rating-error');
+                const value = parseInt(input.value);
+                
+                if (isNaN(value) || value < 1 || value > 5) {
+                    errorElement.textContent = 'Оценка должна быть числом от 1 до 5';
+                    input.setCustomValidity('Invalid rating');
+                } else {
+                    errorElement.textContent = '';
+                    input.setCustomValidity('');
+                }
             }
-        }
 
-        function validateRating() {
-            const ratingInput = document.getElementById('rating');
-            const value = parseInt(ratingInput.value);
-            
-            if (isNaN(value) || value < 1 || value > 5) {
-                alert('Пожалуйста, введите оценку от 1 до 5');
-                return false;
+            function validateRating() {
+                const ratingInput = document.getElementById('rating');
+                const value = parseInt(ratingInput.value);
+                
+                if (isNaN(value) || value < 1 || value > 5) {
+                    alert('Пожалуйста, введите оценку от 1 до 5');
+                    return false;
+                }
+                return true;
             }
-            return true;
-        }
-    </script>
-</body>
-</html>
+        </script>
+{% endblock %}

@@ -1,0 +1,181 @@
+.page__content {
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+}
+
+/* Кнопка "Назад" */
+.back-link {
+    display: inline-block;
+    margin-bottom: 25px;
+    padding: 8px 16px;
+    background-color: #e2e8f0;
+    color: #2d3748;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.back-link:hover {
+    background-color: #cbd5e0;
+    transform: translateY(-2px);
+}
+
+/* Заголовки */
+.page__title {
+    color: #2d3748;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.feedback__section {
+    color: #4a5568;
+    font-size: 1.5rem;
+    margin: 30px 0 20px;
+}
+
+.add__title {
+    color: #4a5568;
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+}
+
+/* Карточки отзывов */
+.feedback__card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.feedback__card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.feedback__card--user {
+    border-left: 4px solid #4a90e2;
+}
+
+.feedback__name {
+    color: #2d3748;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.feedback__text {
+    color: #4a5568;
+    margin: 15px 0;
+    font-size: 1rem;
+}
+
+/* Рейтинг звездами */
+.feedback__rating {
+    margin: 10px 0;
+}
+
+.feedback__star {
+    color: #e2e8f0;
+    font-size: 1.5rem;
+    margin-right: 5px;
+}
+
+.feedback__star--filled {
+    color: #fbbf24;
+}
+
+/* Ссылки в отзывах */
+.feedback__links {
+    margin-top: 15px;
+    display: flex;
+    gap: 15px;
+}
+
+.feedback__link {
+    color: #4a90e2;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.feedback__link:hover {
+    color: #3a7bc8;
+    text-decoration: underline;
+}
+
+/* Форма добавления отзыва */
+.add__rating {
+    margin-bottom: 20px;
+}
+
+.add__rating label {
+    display: block;
+    margin-bottom: 8px;
+    color: #4a5568;
+    font-weight: 500;
+}
+
+.add__rating select {
+    padding: 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    background-color: white;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 200px;
+}
+
+.add__text--title {
+    display: block;
+    margin-bottom: 8px;
+    color: #4a5568;
+    font-weight: 500;
+}
+
+.add__text--input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 1rem;
+    min-height: 100px;
+    resize: vertical;
+    margin-bottom: 20px;
+}
+
+.add__button {
+    padding: 12px 24px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.add__button:hover {
+    background-color: #3a7bc8;
+    transform: translateY(-2px);
+}
+
+/* Сообщение об отсутствии отзывов */
+.feedback__empty {
+    color: #718096;
+    font-style: italic;
+    text-align: center;
+    padding: 30px;
+    background: white;
+    border-radius: 10px;
+}

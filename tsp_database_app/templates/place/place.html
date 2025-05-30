@@ -1,38 +1,44 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Information about place</title>
-    <meta charset="utf-8" />
-</head>
-<body>
-    <h3>Название: {{ place.name }} </h3>
-    <h3>Страна: {{ place.country }} </h3>
-    <h3>Город: {{ place.city }} </h3>
-    <h3>Адрес: {{ place.address }} </h3>
-    <a href="{% url 'place_feedbacks' place.place_id%}">Отзывы об этом месте</a>
-    <a href="{% url 'update_place' place.place_id%}">Редактировать</a>
-    <a href="#" id="delete-link" data-place-id="{{ place.place_id }}">Удалить</a>
-    <a href="{% url 'all_places' %}">Назад</a>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Place | ToGo{% endblock %}
+
+{% block extra_css %}
+  <link href="{% static '../static/css/place/place.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="place">
+        <h2 class="place__name">{{ place.name }} </h2>
+        <h3 class="place__info">Страна: {{ place.country }} </h3>
+        <h3 class="place__info">Город: {{ place.city }} </h3>
+        <h3 class="place__info">Адрес: {{ place.address }} </h3>
+        <div class="place__links">
+            <a class="place__link place__link--feedback" href="{% url 'place_feedbacks' place.place_id%}">Отзывы об этом месте</a>
+            <a class="place__link place__link--update" href="{% url 'update_place' place.place_id%}">Редактировать</a>
+            <a class="place__link place__link--delete" href="#" id="delete-link" data-place-id="{{ place.place_id }}">Удалить</a>
+            <a class="place__link place__link--back" href="{% url 'all_places' %}">Назад</a>
+        </div>
+    </div>
 
     <script>
-        document.getElementById('delete-link').addEventListener('click', function(e) {
-            e.preventDefault();
-            const placeId = this.getAttribute('data-place-id');
-            
-            if (confirm('Вы точно хотите удалить это место?')) {
-                fetch(`/places/${placeId}/delete/`, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRFToken': '{{ csrf_token }}',
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .then(response => {
-                    window.location.href = '/places/';
-                })   
-            }
-            
-        });
-    </script>
-</body>
-</html>
+            document.getElementById('delete-link').addEventListener('click', function(e) {
+                e.preventDefault();
+                const placeId = this.getAttribute('data-place-id');
+                
+                if (confirm('Вы точно хотите удалить это место?')) {
+                    fetch(`/places/${placeId}/delete/`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}',
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    .then(response => {
+                        window.location.href = '/places/';
+                    })   
+                }
+                
+            });
+        </script>
+{% endblock %}

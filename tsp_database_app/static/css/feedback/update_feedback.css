@@ -1,0 +1,131 @@
+/* Основные стили контейнера */
+.update {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    animation: fadeIn 0.4s ease-out;
+}
+
+/* Кнопка "Назад" */
+.update__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    margin-bottom: 25px;
+    background-color: #f1f5f9;
+    color: #334155;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.update__back:hover {
+    background-color: #e2e8f0;
+    transform: translateY(-2px);
+}
+
+.update__back::before {
+    content: "←";
+    font-size: 1.1em;
+}
+
+/* Заголовок страницы */
+.update__title {
+    color: #1e293b;
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f1f5f9;
+}
+
+/* Форма редактирования */
+.update__form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* Поля формы */
+.update__field {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.update__field--name {
+    font-size: 1rem;
+    color: #475569;
+    font-weight: 500;
+}
+
+/* Стили для ввода рейтинга */
+.update__field--rating {
+    padding: 12px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: #f8fafc;
+}
+
+.update__field--rating:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    background-color: #ffffff;
+}
+
+/* Специальные стили для числового ввода рейтинга */
+.rating-control {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.rating-control input[type="number"] {
+    width: 80px;
+    text-align: center;
+    -moz-appearance: textfield;
+}
+
+.rating-control input[type="number"]::-webkit-outer-spin-button,
+.rating-control input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Текстовое поле */
+textarea.update__field--rating {
+    min-height: 150px;
+    resize: vertical;
+}
+
+/* Кнопка отправки */
+.update__submit {
+    padding: 14px;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.update__submit:hover {
+    background-color: #2563eb;
+    transform: translateY(-2px);
+}
+
+.update__submit:active {
+    transform: translateY(0);
+}

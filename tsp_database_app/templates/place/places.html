@@ -1,24 +1,27 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Places</title>
-    <meta charset="utf-8" />
-    <style>
-        .header {
-            display: block;
-            margin: 0 auto 32px;
-        }
-    </style>
-</head>
-<body>
-    <h1 class="header">Список мест:</h1>
-    {% for place in places %}
-        <h2>Название: {{ place.name }} </h2>
-        <span><b>Страна:</b> {{ place.country }} </span><br>
-        <span><b>Город:</b> {{ place.city }} </span><br>
-        <span><b>Адрес:</b> {{ place.address }} </span><br>
-        <a href="{% url 'place' place.place_id%}">Подробнее</a><br>
-        <hr>
-    {% endfor %}
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Вход | ToGo{% endblock %}
+
+{% block extra_css %}
+  <link href="{% static '../static/css/place/places.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="place__content">
+        <h1 class="place__title">Список мест:</h1>
+        <ul class="place__list">
+            {% for place in places %}
+                <li class="place__element">
+                    <div class="place__card">
+                        <h2 class="place__name">{{ place.name }} </h2>
+                        <span class="place__info"><b>Страна:</b> {{ place.country }} </span><br>
+                        <span class="place__info"><b>Город:</b> {{ place.city }} </span><br>
+                        <span class="place__info"><b>Адрес:</b> {{ place.address }} </span><br>
+                        <a class="place__link" href="{% url 'place' place.place_id%}">Подробнее</a><br>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

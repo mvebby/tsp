@@ -1,29 +1,33 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>METANIT.COM</title>
-</head>
-<body>
-    <form method="POST">
-        {% csrf_token %}
-        <p>
-            <label>Введите название</label><br>
-            <input type="text" name="name" value="{{place.name}}" />
-        </p>
-        <p>
-            <label>Введите название страны</label><br>
-            <input type="text" name="country" value="{{place.country}}" />
-        </p>
-        <p>
-            <label>Введите название города</label><br>
-            <input type="text" name="city" value="{{place.city}}" />
-        </p>
-        <p>
-            <label>Введите адрес</label><br>
-            <input type="text" name="address" value="{{place.address}}" />
-        </p>
-        <input type="submit" value="Сохранить" >
-    </form>
-</body>
-</html>
+{% extends '../base.html' %}
+{% load static %}
+
+{% block title %}Update place | ToGo{% endblock %}
+
+{% block extra_css %}
+  <link href="{% static '../static/css/place/update_place.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="update">
+        <form class="update__form" method="POST">
+            {% csrf_token %}
+            <p class="update__field">
+                <label class="update__field--name">Введите название</label><br>
+                <input class="update__field--input" type="text" name="name" value="{{place.name}}" />
+            </p>
+            <p class="update__field">
+                <label class="update__field--name">Введите название страны</label><br>
+                <input class="update__field--input" type="text" name="country" value="{{place.country}}" />
+            </p>
+            <p class="update__field">
+                <label class="update__field--name">Введите название города</label><br>
+                <input class="update__field--input" type="text" name="city" value="{{place.city}}" />
+            </p>
+            <p class="update__field">
+                <label class="update__field--name">Введите адрес</label><br>
+                <input class="update__field--input" type="text" name="address" value="{{place.address}}" />
+            </p>
+            <input class="update__submit" type="submit" value="Сохранить" >
+        </form>
+    </div>
+{% endblock %}

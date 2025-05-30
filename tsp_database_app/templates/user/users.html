@@ -1,24 +1,26 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Users</title>
-    <meta charset="utf-8" />
-    <style>
-        .header {
-            display: block;
-            margin: 0 auto 32px;
-        }
-    </style>
-</head>
-<body>
-    <h1 class="header">Список пользователей:</h1>
-    {% for user in users %}
-        <h2>Имя: {{ user.username }} </h2>
-        <span><b>Возраст:</b> {{ user.age }} </span><br>
-        <span><b>Email:</b> {{ user.email }} </span><br>
-        <a href="{% url 'info_about_user' user.id %}">Подробнее</a>
-        <hr>
-    {% endfor %}
-    <a href="#">Создать нового пользователя</a>
-</body>
-</html>
+{% extends '../base.html' %}
+{% load static %}
+
+{% block title %}Users | ToGo{% endblock %}
+
+{% block extra_css %}
+  <link href="{% static '../static/css/user/Users.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="users">
+        <h1 class="users__title">Список пользователей:</h1>
+        <ul class="users__list">
+            {% for user in users %}
+                <li class="users__item">
+                    <div class="users__card">
+                        <h2 class="users__name">Имя: {{ user.username }} </h2>
+                        <span class="users__age">Возраст: {{ user.age }} </span><br>
+                        <span class="users__mail">Email: {{ user.email }} </span><br>
+                        <a class="users__link" href="{% url 'info_about_user' user.id %}">Подробнее</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>  
+    </div>
+{% endblock %}

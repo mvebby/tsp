@@ -1,59 +1,63 @@
 {% extends '../base.html' %}
+{% load static %}
 
 {% block title %}Регистрация | ToGo{% endblock %}
 
+{% block extra_css %}
+  <link href="{% static '../static/css/auth/register.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
-    <div>
-        <div class="register-container">
-            <h2>Регистрация</h2>
+    <div class="register__container">
+        <h2 class="register__title">Регистрация</h2>
             
-            <form method="post">
-                {% csrf_token %}
+        <form class="register__form" method="post">
+            {% csrf_token %}
                 
-                <div class="form-group">
-                    <label for="username">Имя пользователя</label>
-                    <input type="text" id="username" name="username" required>
+                <div class="register__field">
+                    <label class="register__field--name" for="username">Имя пользователя</label>
+                    <input class="register__field--input" type="text" id="username" name="username" required>
                     {% if errors.username %}
                         <div class="error-message">{{ errors.username.0 }}</div>
                     {% endif %}
                 </div>
                 
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
+                <div class="register__field">
+                    <label class="register__field--name" for="email">Email</label>
+                    <input class="register__field--input" type="email" id="email" name="email" required>
                     {% if errors.email %}
                         <div class="error-message">{{ errors.email.0 }}</div>
                     {% endif %}
                 </div>
                 
-                <div class="form-group">
-                    <label for="age">Возраст</label>
-                    <input type="number" id="age" name="age" min="1" max="120" required>
+                <div class="register__field">
+                    <label class="register__field--name" for="age">Возраст</label>
+                    <input class="register__field--input" type="number" id="age" name="age" min="1" max="120" required>
                     {% if errors.age %}
                         <div class="error-message">{{ errors.age.0 }}</div>
                     {% endif %}
                 </div>
                 
-                <div class="form-group">
-                    <label for="password">Пароль</label>
-                    <input type="password" id="password" name="password" required>
+                <div class="register__field">
+                    <label class="register__field--name" for="password">Пароль</label>
+                    <input class="register__field--input" type="password" id="password" name="password" required>
                     {% if errors.password %}
                         <div class="error-message">{{ errors.password.0 }}</div>
                     {% endif %}
                 </div>
                 
-                <div class="form-group">
-                    <label for="password_confirm">Подтвердите пароль</label>
-                    <input type="password" id="password_confirm" name="password_confirm" required>
+                <div class="register__field">
+                    <label class="register__field--name" for="password_confirm">Подтвердите пароль</label>
+                    <input class="register__field--input" type="password" id="password_confirm" name="password_confirm" required>
                     {% if errors.password_confirm %}
                         <div class="error-message">{{ errors.password_confirm.0 }}</div>
                     {% endif %}
                 </div>
                 
-                <button type="submit">Зарегистрироваться</button>
+                <button class="register__button" type="submit">Зарегистрироваться</button>
             </form>
             
-            <div class="login-link">
+            <div class="register__redirect">
                 Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a>
             </div>
         </div>
@@ -69,6 +73,5 @@
                     alert('Пароли не совпадают!');
                 }
             });
-        </script>
-    </div>
+    </script>
 {% endblock %}
