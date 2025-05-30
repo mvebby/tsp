@@ -205,7 +205,7 @@ class LoginView(APIView):
             response.set_cookie('refresh_token', refresh_token, httponly=True)
             return response
         else:
-            return render(request, 'login.html', {'error': 'Invalid credentials'})
+            return render(request, 'auth/login.html', {'error': 'Неправильные имя аккаунта или пароль'})
 
 #--------------------------------------------------------------------------------------------------#
 # Logout

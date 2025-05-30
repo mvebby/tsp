@@ -36,6 +36,7 @@ urlpatterns = [
     path('users/<int:id>/delete/', views.CustomUserAPIView.as_view(), name='delete_user'),
     path('register/', views.RegisterView.as_view(), name='register'),
     path('login/', views.LoginView.as_view(), name='login'),
+    path('', views.LoginView.as_view(), name='start'),
     path('logout/', views.LogoutView.as_view(), name='logout'),
     path('change-password/', views.PasswordChangeAPIView.as_view(), name='password_change'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),

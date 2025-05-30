@@ -8,6 +8,13 @@
 {% endblock %}
 
 {% block content %}
+  {% if error %}
+    <script>
+        alert('{{ error }}');
+        // Или более красивое уведомление с использованием Toastr/Alertify и т.д.
+    </script>
+  {% endif %}
+  
   <div class="login">
     <h2 class="login__title">Вход</h2>
 
@@ -23,3 +30,4 @@
     </div>
   </div>
 {% endblock %}
+
