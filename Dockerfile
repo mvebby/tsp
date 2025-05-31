@@ -1,7 +1,7 @@
-FROM postgres:latest
+FROM python
 
-ENV POSTGRES_DB=tsp_database
-ENV POSTGRES_USER=alsu
-ENV POSTGRES_PASSWORD=1234
+# рабочая директория внутри контейнейра, команды выполняются из этой директории (manage, runserver)
+WORKDIR /tsp 
 
-EXPOSE 5436
+COPY requirements.txt ./
+RUN pip install -r requirements.txt

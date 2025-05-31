@@ -213,7 +213,7 @@ class LogoutView(View):
     def get(self, request):
         # Проверяем, не находится ли уже пользователь на странице входа
         if request.path == reverse('login'):
-            return redirect('home')  # Перенаправляем на главную, чтобы избежать цикла
+            return redirect('start')  # Перенаправляем на главную, чтобы избежать цикла
         
         # Выход из системы
         logout(request)  # Важно: очищаем сессию Django

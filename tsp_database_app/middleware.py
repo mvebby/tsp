@@ -15,7 +15,7 @@ class JWTAuthenticationMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        if request.path in [reverse('login'), reverse('logout')]:
+        if request.path in [reverse('register'), reverse('login'), reverse('logout')]:
             return self.get_response(request)
         # Пропускаем для эндпоинтов аутентификации и статики
         if request.path in [reverse('token_obtain_pair'), 
@@ -28,8 +28,8 @@ class JWTAuthenticationMiddleware:
         refresh_token = request.COOKIES.get('refresh_token')
 
         # Если нет токенов - редирект на логин
-        if not access_token and not refresh_token:
-            return self._redirect_to_login(request)
+        #if not access_token and not refresh_token:
+        #    return self._redirect_to_login(request)
 
         try:
             # Если есть access token - проверяем его

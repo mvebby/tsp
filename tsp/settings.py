@@ -33,7 +33,7 @@ SECRET_KEY = 'django-insecure-r@ft+*+uokn$8rqjdo5ak)*oocz=ezu7zs&4l9mlbgakf(er+6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
 
 
 # Application definition
@@ -114,13 +114,24 @@ WSGI_APPLICATION = 'tsp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('POSTGRES_DB', 'tsp_database'),
-        'USER': os.environ.get('POSTGRES_USER', 'alsu'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', '1234'),
-        'HOST': os.environ.get('POSTGRES_HOST', 'localhost'),
-        'PORT': os.environ.get('POSTGRES_PORT', '5436')
+        'NAME': 'tsp_database',  # Указываем явно, как в docker-compose.yml
+        'USER': 'alsu',
+        'PASSWORD': '1234',
+        'HOST': 'db',  # Имя сервиса в docker-compose
+        'PORT': '5432',  # Внутренний порт PostgreSQL (не 5436!)
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.environ.get('POSTGRES_DB', 'tsp_database'),
+#         'USER': os.environ.get('POSTGRES_USER', 'alsu'),
+#         'PASSWORD': os.environ.get('POSTGRES_PASSWORD', '1234'),
+#         'HOST': os.environ.get('POSTGRES_HOST', 'db'),
+#         'PORT': os.environ.get('POSTGRES_PORT', '5432')
+#     }
+# }
 
 
 # Password validation
